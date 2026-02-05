@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALTAN | 个人网站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e6e6e6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .ascii-art {
+            font-family: 'Courier New', monospace;
+            color: #4cc9f0;
+            font-size: 12px;
+            line-height: 1.3;
+            margin: 0 auto;
+            text-shadow: 0 0 8px rgba(76, 201, 240, 0.5);
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border: 1px solid rgba(76, 201, 240, 0.2);
+            white-space: pre;
+            overflow-x: auto;
+        }
+        
+        .spacer {
+            height: 40px;
+        }
+        
+        .intro {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 20px;
+            border-left: 4px solid #4cc9f0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        .intro-text {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+            font-weight: 300;
+        }
+        
+        .sub-text {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            font-weight: 300;
+        }
+        
+        .highlight {
+            color: #4cc9f0;
+            font-weight: bold;
+        }
+        
+        .footer {
+            margin-top: 50px;
+            font-size: 0.9rem;
+            color: #888;
+            text-align: center;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.9; }
+            50% { opacity: 1; }
+            100% { opacity: 0.9; }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .ascii-art {
+                font-size: 8px;
+            }
+            
+            .intro-text {
+                font-size: 1.5rem;
+            }
+            
+            .sub-text {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .ascii-art {
+                font-size: 6px;
+            }
+            
+            .intro {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="ascii-art" id="altan-art">
+  █████╗  ██╗       ████████╗ █████╗  ███╗     ██╗
+ ██╔══██╗██║       ╚══██╔══╝██╔══██╗████╗   ██║
+ ███████║██║            ██║    ███████║ ██╔██╗ ██║
+ ██╔══██║██║            ██║    ██╔══██║ ██║╚██╗██║
+ ██║    ██║███████╗   ██║    ██║   ██║ ██║ ╚████║
+ ╚═╝    ╚═╝╚══════╝   ╚═╝    ╚═╝   ╚═╝ ╚═╝  ╚═══╝
+        </div>
+        
+        <div class="spacer"></div>
+        
+        <div class="intro pulse">
+            <h1 class="intro-text">🇨🇳你好，我是<span class="highlight">我</span>，第一次做网站！</h1>
+            <p class="sub-text">这是我的第一个网页作品，一个简单的开始，但充满了无限可能。</p>
+        </div>
+        
+        <div class="footer">
+            <p>© 2077 github · 阐述你的梦</p>
+        </div>
+    </div>
+
+    <script>
+        // 为ASCII艺术添加打字机效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const asciiArt = document.getElementById('altan-art');
+            const originalText = asciiArt.textContent;
+            asciiArt.textContent = '';
+            
+            let i = 0;
+            function typeWriter() {
+                if (i < originalText.length) {
+                    asciiArt.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 10);
+                }
+            }
+            
+            // 延迟开始打字效果
+            setTimeout(typeWriter, 500);
+            
+            // 添加闪烁的光标效果
+            const cursor = document.createElement('span');
+            cursor.className = 'cursor';
+            cursor.textContent = '_';
+            cursor.style.color = '#4cc9f0';
+            cursor.style.animation = 'blink 1s infinite';
+            
+            // 添加闪烁动画
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes blink {
+                    0%, 50% { opacity: 1; }
+                    51%, 100% { opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // 打字完成后添加光标
+            setTimeout(() => {
+                asciiArt.appendChild(cursor);
+                setTimeout(() => {
+                    cursor.style.display = 'none';
+                }, 1000);
+            }, originalText.length * 10 + 500);
+        });
+    </script>
+</body>
+</html>
